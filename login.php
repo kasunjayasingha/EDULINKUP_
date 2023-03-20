@@ -18,6 +18,9 @@ if (isset($_POST['loginBtn'])) {
                 $fname = $row['fname'];
                 $lname = $row['lname'];
                 $grade = $row['grade'];
+                $email = $row['email'];
+                $tel = $row['telephone'];
+                $address = $row['address'];
 
                 $sql2 = "SELECT payment FROM payment WHERE sid = '$row[sid]'";
                 $result2 = mysqli_query($conn, $sql2);
@@ -29,6 +32,9 @@ if (isset($_POST['loginBtn'])) {
                     $_SESSION['fname'] = $fname;
                     $_SESSION['lname'] = $lname;
                     $_SESSION['grade'] = $grade;
+                    $_SESSION['email'] = $email;
+                    $_SESSION['tel'] = $tel;
+                    $_SESSION['address'] = $address;
 
                     $_SESSION['statusDash'] = "Login Successful";
                     $_SESSION['status_codeDash'] = "success";

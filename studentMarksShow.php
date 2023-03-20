@@ -109,6 +109,9 @@ include 'includes/connection.php';
         <li class="nav-item">
           <a class="nav-link active" href="#">Marks</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="studentProfile.php">Your Profile</a>
+        </li>
       </ul>
 
       <!-- DataTales Example -->

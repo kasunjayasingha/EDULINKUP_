@@ -13,7 +13,7 @@ include 'includes/connection.php';
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edulinkup</title>
+    <title><?php echo $_SESSION['fname'] . " "; ?> Profile</title>
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,6 +39,10 @@ include 'includes/connection.php';
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+     <!-- MDB icon -->
+  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="CSS/bootstrap-profiles.min.css" />
 
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
@@ -103,14 +107,14 @@ include 'includes/connection.php';
     <!-- Main Start -->
     <div class="container-fluid">
       <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page">Materials</a>
+      <li class="nav-item">
+          <a class="nav-link" href="student.php" aria-current="page">Materials</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="studentMarksShow.php">Marks</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="studentProfile.php">Your Profile</a>
+          <a class="nav-link active" href="studentProfile.php">Your Profile</a>
         </li>
       </ul>
 
@@ -123,47 +127,121 @@ include 'includes/connection.php';
         <div class="card-body">
         <div class="table-responsive">
         <!-- Materials Start -->
-    <div
-      class="section-title position-relative text-center mb-5 pb-2"
-      data-aos="fade-up"
-      data-aos-offset="200"
-      data-aos-duration="500"
-      data-aos-easing="ease-in-out"
-    >
-      <h2 class="mt-2">Your Lecturer Materials</h2>
-    </div>
+    <!-- Start your project here-->
+  <section style="background-color: #eee;">
+    <div class="container py-5">
 
-    <div class="container margin-nav grid grid--1x1 grid--1x3 grid--1x4">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="Imgs/userProfile.png" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3"><?php echo $_SESSION['fname'] . " " . $_SESSION['lname']; ?></h5>
+              <p class="text-muted mb-4"><?php echo $_SESSION['grade']; ?></p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-outline-primary ms-1">Edit</button>
+              </div>
+            </div>
+          </div>
 
-    <?php
-$select_query = "SELECT * FROM subject_materials WHERE grade = '" . $_SESSION['grade'] . "' ORDER BY RAND()";
+
+          <div class="card mb-4 mb-lg-0">
+
+            <div class="card-body text-center">
+            <h3 class="my-3">Your Class Teacher</h3>
+            <?php
+$grade = $_SESSION['grade'];
+$select_query = "SELECT * FROM teacher where grade = '$grade' ORDER BY RAND()";
 $result_query = mysqli_query($conn, $select_query);
 
 while ($row = mysqli_fetch_assoc($result_query)) {
 
-    $topic = $row['m_topic'];
-    $file = $row['mid'];
+    $fname = $row['fname'];
+    $lname = $row['lname'];
+    $profile_photo = $row['profile_photo'];
+    $space = " ";
 
-    echo "<div
-        class='card-content'
-        data-aos='flip-left'
-        data-aos-offset='200'
-        data-aos-duration='1000'
-        data-aos-easing='ease-in-out'
-      >
-        <a href='single_product.html'
-          ><img class='img--card' src='Imgs/notes_icon.png' alt='LS05 Watch'
-        /></a>
-        <h4>$topic</h4>
-        <a href= 'code.php?file_id=$file'>
-        <button class='btn btn--card buy-btn'>Download</button>
-        </a>
-      </div>";
+    echo "
+    <div class='team-item gap-md-5'>
+      <div class='d-flex'>
 
+        <img
+          class='img-fluid rounded w-100'
+          src='Admin/img/materails/$profile_photo'
+          alt='$profile_photo'
+        />
+      </div>
+      <div class='px-4 py-3'>
+        <h5 class='fw-bold m-0'>$fname $space $lname </h5>
+      </div>
+    </div>";
 }
 ?>
 
+
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><?php echo $_SESSION['fname'] . " " . $_SESSION['lname']; ?></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><?php echo $_SESSION['email']; ?></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Phone</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><?php echo $_SESSION['tel']; ?></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Address</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><?php echo $_SESSION['address']; ?></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Username</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><?php echo $_SESSION['usernamestudent']; ?></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
+  </section>
+  <!-- End your project here-->
+
+
+
       </div>
     </div>
   </div>
@@ -171,7 +249,8 @@ while ($row = mysqli_fetch_assoc($result_query)) {
     <!-- Materials End -->
 
 
-
+<!-- MDB -->
+<script type="text/javascript" src="JS/mdb.min.js"></script>
 
     <?php
 
