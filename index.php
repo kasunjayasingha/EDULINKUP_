@@ -62,7 +62,7 @@ while ($row = mysqli_fetch_assoc($result_query)) {
         </div>
         <img
           class='img-fluid rounded w-100'
-          src='../EduLinkup--admin/img/materails/$profile_photo'
+          src='Admin/img/materails/$profile_photo'
           alt='$profile_photo'
         />
       </div>

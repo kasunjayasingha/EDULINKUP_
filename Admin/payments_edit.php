@@ -11,12 +11,14 @@ include 'includes/connection.php';
 if (isset($_POST['editPaymentBtn'])) {
     $id = $_POST["edit_id"];
     // This get for find the update row
-    $_SESSION['sid'] = $id;
+    $_SESSION['psid'] = $id;
 
     $sql = "SELECT * FROM payment WHERE sid = '$id'";
     $result = mysqli_query($conn, $sql);
 
     foreach ($result as $row) {
+        $_SESSION['fname'] = $row['fname'];
+        $_SESSION['lname'] = $row['lname'];
         ?>
 <div class="container-fluid">
 
@@ -37,6 +39,30 @@ if (isset($_POST['editPaymentBtn'])) {
         <input class="form-check-input" type="radio" name="paymentStatus" value="Not Pay" id="flexRadioDefault2" checked>
         <label class="form-check-label" for="flexRadioDefault2">Not Pay</label>
     </div>
+  </div>
+  <div class="col-6">
+  <label for="selectGrade" class="form-label">Month</label>
+  <br>
+    <select class="form-select mb-3" name="umonth" aria-label="Default select example" id="selectGrade" required>
+        <option selected>Select Month..</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+    </select>
+  </div>
+  <div class="col-6">
+    <label for="inputPassword4" class="form-label">Year</label>
+    <input type="number" name="uyear" value="<?php $year = date("Y");
+        echo $year;?>" class="form-control mb-3" id="inputPassword4" readonly>
   </div>
   <div class="col-6">
     <label for="inputPassword4" class="form-label">Payment Amount</label>

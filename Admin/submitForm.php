@@ -249,19 +249,68 @@ if (isset($_POST['deletestudentBtn'])) {
 if (isset($_POST['paymentUpdatebtn'])) {
     $paymentAmount = $_POST['paymentAmount'];
     $paymentStatus = $_POST['paymentStatus'];
+    $umonth = $_POST['umonth'];
+    $uyear = $_POST['uyear'];
     $paymentDate = date('Y-m-d');
 
-    $sql = "UPDATE payment SET payment = '$paymentStatus', payment_date = '$paymentDate', amount = '$paymentAmount' WHERE sid = '$_SESSION[sid]'";
+    $sql = "UPDATE payment SET payment = '$paymentStatus', payment_date = '$paymentDate', amount = '$paymentAmount' WHERE sid = '$_SESSION[psid]'";
     if (mysqli_query($conn, $sql)) {
-        $_SESSION['status'] = "Payment Updated Successfully";
-        $_SESSION['status_code'] = "success";
-        header("Location: payments.php");
+        if ($paymentStatus === "Pay") {
+            $sql2 = "SELECT * FROM payment_histroy WHERE sid = '$_SESSION[psid]' AND payment_month = '$umonth' AND payment_year = '$uyear'";
+            if (mysqli_query($conn, $sql2)) {
+                if (mysqli_num_rows(mysqli_query($conn, $sql2)) > 0) {
+                    $sql3 = "UPDATE payment_histroy SET amount = '$paymentAmount' WHERE sid = '$_SESSION[psid]' AND payment_month = '$umonth'";
+                    if (mysqli_query($conn, $sql3)) {
+                        $_SESSION['status'] = "Payment Successfully";
+                        $_SESSION['status_code'] = "success";
+                        header("Location: payments.php");
+                    } else {
+                        $_SESSION['status'] = "Payment Not Updated";
+                        $_SESSION['status_code'] = "error";
+                        header("Location: payments.php");
+                    }
+                } else {
+                    $fname = $_SESSION['fname'];
+                    $lname = $_SESSION['lname'];
+                    $sql4 = "INSERT INTO payment_histroy (sid, fname, lname, payment_month, amount) VALUES ('$_SESSION[psid]', '$fname', '$lname', '$umonth', '$paymentAmount')";
+                    if (mysqli_query($conn, $sql4)) {
+                        $_SESSION['status'] = "Payment Successfully";
+                        $_SESSION['status_code'] = "success";
+                        header("Location: payments.php");
+                    } else {
+                        $_SESSION['status'] = "Payment Not Updated";
+                        $_SESSION['status_code'] = "error";
+                        header("Location: payments.php");
+                    }
+                }
+            } else {
+                $fname = $_SESSION['fname'];
+                $lname = $_SESSION['lname'];
+                $sql5 = "INSERT INTO payment_histroy (sid, fname, lname, payment_month, amount) VALUES ('$_SESSION[psid]', '$fname', '$lname', '$umonth', '$paymentAmount')";
+                if (mysqli_query($conn, $sql5)) {
+                    $_SESSION['status'] = "Payment Successfully";
+                    $_SESSION['status_code'] = "success";
+                    header("Location: payments.php");
+                } else {
+                    $_SESSION['status'] = "Payment Not Updated";
+                    $_SESSION['status_code'] = "error";
+                    header("Location: payments.php");
+                }
+
+            }
+        } else {
+            $_SESSION['status'] = "Payment status updated";
+            $_SESSION['status_code'] = "success";
+            header("Location: payments.php");
+        }
     } else {
-        $_SESSION['status'] = "Payment Not Updated";
+        $_SESSION['status'] = "Payment not updated";
         $_SESSION['status_code'] = "error";
-        header("Location: payments.php.php");
+        header("Location: payments.php");
     }
-    unset($_SESSION['sid']);
+    unset($_SESSION['psid']);
+    unset($_SESSION['fname']);
+    unset($_SESSION['lname']);
 }
 
 // DELETE payment
@@ -369,7 +418,7 @@ if (isset($_POST['teacherUpdatebtn'])) {
             header('Location: teacherEdit.php');
 
             $sql = "UPDATE teacher SET fname = '$ufname', lname = '$ulname', email = '$uemail', telephone = '$utel', whatsapp = '$uwhatsapp', address = '$uaddress', gender = ' $ugender', grade = '$ugrade',
-            username = '$username', password = '$password', qualification = '$uquali' WHERE tid = '$id'";
+            username = '$username', password = '$password', qualification = '$uquali', profile_photo = '$uphoto' WHERE tid = '$id'";
             if (mysqli_query($conn, $sql)) {
 
                 $sql2 = "UPDATE teach SET grade = '$ugrade' WHERE tid = '$id'";
@@ -393,19 +442,26 @@ if (isset($_POST['teacherUpdatebtn'])) {
 // Delete Teacher
 if (isset($_POST['deleteTeacherBtn'])) {
     $id = $_POST['delete_id'];
-    $previousFileDestinamtion = 'img/materails/' . $_SESSION['fileName'];
-    unlink($previousFileDestinamtion);
-    $sql = "DELETE FROM teacher WHERE tid = '$id'";
-    if (mysqli_query($conn, $sql)) {
-        $sql2 = "DELETE FROM teach WHERE tid = '$id'";
-        if (mysqli_query($conn, $sql2)) {
-            $_SESSION['status'] = "Teacher Profile Deleted Successfully";
-            $_SESSION['status_code'] = "success";
-            header("Location: register_teacher.php");
-        } else {
-            $_SESSION['status'] = "Teacher Profile Not Deleted";
-            $_SESSION['status_code'] = "error";
-            header("Location: register_teacher.php");
+    $grade = $_POST['delete_grade'];
+
+    if ($_POST['delete_file']) {
+        $previousFileDestinamtion = 'img/materails/' . $_POST['delete_file'];
+        unlink($previousFileDestinamtion);
+        $sql = "DELETE FROM teacher WHERE tid = '$id'";
+        if (mysqli_query($conn, $sql)) {
+            $sql2 = "DELETE FROM teach WHERE tid = '$id'";
+            if (mysqli_query($conn, $sql2)) {
+                $sql3 = "DELETE FROM subject_materials WHERE grade = '$grade' AND tid = '$id'";
+                if (mysqli_query($conn, $sql3)) {
+                    $_SESSION['status'] = "Teacher Profile Deleted Successfully";
+                    $_SESSION['status_code'] = "success";
+                    header("Location: register_teacher.php");
+                } else {
+                    $_SESSION['status'] = "Teacher Profile Not Deleted";
+                    $_SESSION['status_code'] = "error";
+                    header("Location: register_teacher.php");
+                }
+            }
         }
     }
 }
