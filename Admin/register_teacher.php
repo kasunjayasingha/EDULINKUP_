@@ -156,12 +156,14 @@ if (mysqli_num_rows($result) > 0) {
 
                 <td>
                   <form action="teacherEdit.php" method="post">
-                  <input type="hidden" name="edit_id" value="<?php echo $row['tid']; ?>">
+                    <input type="hidden" name="edit_id" value="<?php echo $row['tid']; ?>">
                     <button type="submit" name="editTeacherBtn" class="btn btn-success">EDIT</button></td>
                   </form>
                 <td>
                   <form action="submitForm.php" method="post">
                     <input type="hidden" name="delete_id" value="<?php echo $row['tid']; ?>" id="">
+                    <input type="hidden" name="delete_grade" value="<?php echo $row['grade']; ?>" id="">
+                    <input type="hidden" name="delete_file" value="<?php echo $row['profile_photo']; ?>">
                     <button type="submit" name="deleteTeacherBtn"  class="btn btn-danger">DELETE</button>
                   </form>
                 </td>

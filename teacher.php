@@ -121,7 +121,8 @@ include 'includes/connection.php';
         <div class="card-body">
         <div class="table-responsive">
         <?php
-$sql = "SELECT * FROM subject_materials";
+$grade = $_SESSION['grade'];
+$sql = "SELECT * FROM subject_materials WHERE grade = '$grade' ";
 $result = mysqli_query($conn, $sql);
 
 ?>

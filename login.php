@@ -64,7 +64,7 @@ if (isset($_POST['loginBtn'])) {
                 $_SESSION['teacher_id'] = $row['tid'];
                 $_SESSION['statusDash'] = "Login Successful";
                 $_SESSION['status_codeDash'] = "success";
-                header("Location: index.php");
+                header("Location: teacher.php");
             }
 
         } else {

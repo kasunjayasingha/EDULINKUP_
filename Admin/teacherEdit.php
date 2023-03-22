@@ -15,7 +15,7 @@ if (isset($_POST['editTeacherBtn'])) {
 
     $sql = "SELECT * FROM teacher WHERE tid = '$id'";
     $result = mysqli_query($conn, $sql);
-    echo $_SESSION['ammo'];
+
     foreach ($result as $row) {
         ?>
 

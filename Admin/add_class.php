@@ -62,9 +62,9 @@ if (mysqli_num_rows($result) > 0) {
                     <button type="submit" name="editBtn" class="btn btn-success">EDIT</button></td>
                   </form>
                 <td>
-                  <form action="regAdd.php" method="post">
+                  <form action="submitForm.php" method="post">
                     <input type="hidden" name="delete_id" value="<?php echo $row['gid']; ?>" id="">
-                    <button type="submit" name="deleteBtn" class="btn btn-danger">DELETE</button>
+                    <button type="submit" name="deleteclassBtn" class="btn btn-danger">DELETE</button>
                   </form>
                 </td>
 

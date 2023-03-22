@@ -249,6 +249,7 @@ if (isset($_POST['deletestudentBtn'])) {
 if (isset($_POST['paymentUpdatebtn'])) {
     $paymentAmount = $_POST['paymentAmount'];
     $paymentStatus = $_POST['paymentStatus'];
+    $ufull = $_POST['ufull'];
     $umonth = $_POST['umonth'];
     $uyear = $_POST['uyear'];
     $paymentDate = date('Y-m-d');
@@ -272,7 +273,7 @@ if (isset($_POST['paymentUpdatebtn'])) {
                 } else {
                     $fname = $_SESSION['fname'];
                     $lname = $_SESSION['lname'];
-                    $sql4 = "INSERT INTO payment_histroy (sid, fname, lname, payment_month, amount) VALUES ('$_SESSION[psid]', '$fname', '$lname', '$umonth', '$paymentAmount')";
+                    $sql4 = "INSERT INTO payment_histroy (sid, full_name, payment_month, amount) VALUES ('$_SESSION[psid]', '$ufull', '$umonth', '$paymentAmount')";
                     if (mysqli_query($conn, $sql4)) {
                         $_SESSION['status'] = "Payment Successfully";
                         $_SESSION['status_code'] = "success";

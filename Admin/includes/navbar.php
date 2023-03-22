@@ -66,7 +66,6 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Student's Forms:</h6>
             <a class="collapse-item" href="register_student.php">Student Registration</a>
-            <a class="collapse-item" href="register.html">Register</a>
             <a class="collapse-item" href="payments.php">Payment</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Teacher's Forms</h6>

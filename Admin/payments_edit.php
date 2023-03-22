@@ -17,8 +17,8 @@ if (isset($_POST['editPaymentBtn'])) {
     $result = mysqli_query($conn, $sql);
 
     foreach ($result as $row) {
-        $_SESSION['fname'] = $row['fname'];
-        $_SESSION['lname'] = $row['lname'];
+        $_SESSION['fname'] = $fname = $row['fname'];
+        $_SESSION['lname'] = $lname = $row['lname'];
         ?>
 <div class="container-fluid">
 
@@ -39,6 +39,10 @@ if (isset($_POST['editPaymentBtn'])) {
         <input class="form-check-input" type="radio" name="paymentStatus" value="Not Pay" id="flexRadioDefault2" checked>
         <label class="form-check-label" for="flexRadioDefault2">Not Pay</label>
     </div>
+  </div>
+  <div class="col-6">
+    <label for="inputPassword4" class="form-label">Full Name</label>
+    <input type="text" name="ufull" value="<?php echo $fname . " " . $lname ?>" class="form-control mb-3" id="inputPassword4" readonly>
   </div>
   <div class="col-6">
   <label for="selectGrade" class="form-label">Month</label>

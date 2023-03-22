@@ -241,9 +241,11 @@ if (mysqli_num_rows($result) > 0) {
 
           </tbody>
         </table>
-      </div>
+        </div>
     </div>
   </div>
+
+</div>
 
   <div class="container-fluid">
 
@@ -303,38 +305,43 @@ if (mysqli_num_rows($result) > 0) {
 
           </tbody>
         </table>
-      </div>
+        </div>
     </div>
   </div>
+
 </div>
-  </div>
+
+
   <div class="container-fluid">
 
-  <!-- DataTales Example -->
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Payments</h6>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Payments</h6>
+        <hr>
+        <div class="col-6">
+          <label for="inputnames" class="form-label">Student Name</label>
+          <input type="text" id="myInput" onkeyup="myFunction()" class="form-control mb-3" placeholder="Search for names.." title="Type in a name"/>
+      </div>
     </div>
 
     <div class="card-body">
 
       <div class="table-responsive">
-        <?php
-$sql = "SELECT * FROM payment";
+      <?php
+$sql = "SELECT * FROM payment_histroy";
 $result = mysqli_query($conn, $sql);
 
 ?>
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered" id="dataPaymentTable" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th>Id</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Grade</th>
-              <th>Payment Status</th>
+              <th>Full Name</th>
+              <th>Payment Month</th>
+              <th>Payment Year</th>
               <th>Payment Amount</th>
-              <th>Payment Date</th>
 
             </tr>
           </thead>
@@ -346,16 +353,10 @@ if (mysqli_num_rows($result) > 0) {
         ?>
               <tr>
                 <td><?php echo $row['sid']; ?></td>
-                <td><?php echo $row['fname']; ?></td>
-                <td><?php echo $row['lname']; ?></td>
-                <td><?php echo $row['email']; ?></td>
-                <td><?php echo $row['grade']; ?></td>
-                <td><?php echo $row['payment']; ?></td>
+                <td><?php echo $row['full_name']; ?></td>
+                <td><?php echo $row['payment_month']; ?></td>
+                <td><?php echo $row['payment_year']; ?></td>
                 <td><?php echo $row['amount']; ?></td>
-                <td><?php echo $row['payment_date']; ?></td>
-
-
-
               </tr>
             <?php
 
@@ -365,13 +366,14 @@ if (mysqli_num_rows($result) > 0) {
 }
 ?>
 
+
           </tbody>
         </table>
-      </div>
+        </div>
     </div>
   </div>
-  </div>
-  </div>
+
+
 
 <?php
 mysqli_close($conn);

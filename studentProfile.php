@@ -139,7 +139,7 @@ include 'includes/connection.php';
               <h5 class="my-3"><?php echo $_SESSION['fname'] . " " . $_SESSION['lname']; ?></h5>
               <p class="text-muted mb-4"><?php echo $_SESSION['grade']; ?></p>
               <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-outline-primary ms-1">Edit</button>
+                <!-- <button type="button" class="btn btn-outline-primary ms-1">Edit</button> -->
               </div>
             </div>
           </div>

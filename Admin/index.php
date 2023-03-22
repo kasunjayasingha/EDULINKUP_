@@ -60,7 +60,18 @@ echo '<h1>' . $queryResults . '</h1>';
                   Revenue
                   </div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    Rs 100,000
+                  <?php
+$sql = "SELECT amount FROM payment_histroy";
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0) {
+    $total = 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $total += $row['amount'];
+    }
+    echo '<h1>' . 'Rs.' . $total . '</h1>';
+}
+
+?>
                   </div>
                 </div>
                 <div class="col-auto">
