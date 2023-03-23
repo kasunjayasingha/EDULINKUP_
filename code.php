@@ -155,11 +155,11 @@ if (isset($_POST['deletemarksBtn'])) {
     $mark = null;
     $sql = "UPDATE marks SET marks ='$mark' WHERE sid = '$id'";
     if (mysqli_query($conn, $sql)) {
-        $_SESSION['statusDash'] = "File upload failed";
+        $_SESSION['statusDash'] = "Marks deleted successfully";
         $_SESSION['status_codeDash'] = "success";
         header('Location: studentMarks.php');
     } else {
-        $_SESSION['statusDash'] = "File upload failed";
+        $_SESSION['statusDash'] = "Marks delete failed";
         $_SESSION['status_codeDash'] = "error";
         header('Location: studentMarks.php');
     }
