@@ -39,14 +39,6 @@
         <form action="login.php" method="post">
           <h1>Login</h1>
           <div class="form-group">
-            <select name="utype" id="">
-              <option value="">Select User Type...</option>
-              <option value="Teacher">Teacher</option>
-              <option value="Student">Student</option>
-            </select>
-          </div>
-
-          <div class="form-group">
             <label for="uname">Username</label>
             <input id="uname" class="usernamelogin" type="text" name="uname" required />
           </div>
